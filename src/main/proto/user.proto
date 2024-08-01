@@ -1,0 +1,25 @@
+syntax = "proto3";
+option java_package = "com.bowmeow.user";
+
+service UserService {
+  rpc signUp ( SignUpRequest ) returns ( SignUpResponse ) {};
+  rpc getUser ( UserRequest ) returns ( UserResponse ) {};
+}
+
+message SignUpRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message SignUpResponse {
+  string message = 1;
+}
+
+message UserRequest {
+  string userId = 1;
+}
+
+message UserResponse {
+  string username = 1;
+  string email = 2;
+}
