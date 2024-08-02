@@ -15,6 +15,12 @@ public class GrpcServerConfiguration {
     @Value("${grpc.server.port}")
     private int grpcPort;
 
+    private final UserServer userServer;
+
+    public GrpcServerConfiguration(UserServer userServer) {
+        this.userServer = userServer;
+    }
+
     @Bean
     public UserServer userServer( UserService userService) {
         return new UserServer(userService, grpcPort);
@@ -22,6 +28,6 @@ public class GrpcServerConfiguration {
 
     @PostConstruct
     public void startGrpcServer() throws IOException {
-        userServer(null).start();
+        userServer.start();
     }
 }
