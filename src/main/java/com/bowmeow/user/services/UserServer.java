@@ -2,6 +2,7 @@ package com.bowmeow.user.services;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,16 +11,15 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
+@Setter
 @Component
 public class UserServer {
-    private final int port;
-    private final Server server;
+    private int port;
+    private Server server;
 
-    @Autowired
-    public UserServer(UserService userService, int port) {
-        this.port = port;
-        server = ServerBuilder.forPort(port)
-                .addService(userService)
+    public void initialize( UserService userService ) {
+        server = ServerBuilder.forPort( port )
+                .addService( userService )
                 .build();
     }
 
@@ -43,12 +43,6 @@ public class UserServer {
     public void stop() throws InterruptedException {
         if (server != null) {
             server.shutdown().awaitTermination(30, TimeUnit.SECONDS);
-        }
-    }
-
-    private void blockUntilShutdown() throws InterruptedException {
-        if (server != null) {
-            server.awaitTermination();
         }
     }
 }
