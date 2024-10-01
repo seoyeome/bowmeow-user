@@ -1,14 +1,30 @@
 package com.bowmeow.user.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.util.UUID;
+
+@Entity
+@Table(name = "users")
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class UserEntity {
-    private String id;
-    private String username;
-    private String password;
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    @Column(unique = true)
     private String email;
+
+    private String password;
+    private String nickname;
+    private String phoneNumber;
+    private String address;
+
+    @Builder.Default
+    private boolean emailVerified = false;
 }

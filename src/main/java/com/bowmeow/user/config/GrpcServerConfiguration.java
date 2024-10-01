@@ -13,7 +13,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class GrpcServerConfiguration {
 
-    @Value("${grpc.server.port}")
+    @Value( "${grpc.server.port}" )
     private int grpcPort;
 
     private final UserService userService;

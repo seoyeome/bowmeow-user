@@ -4,15 +4,22 @@ option java_package = "com.bowmeow.user";
 service UserService {
   rpc signUp ( SignUpRequest ) returns ( SignUpResponse ) {};
   rpc getUser ( UserRequest ) returns ( UserResponse ) {};
+  rpc sendVerificationEmail (SendVerificationEmailRequest) returns (SendVerificationEmailResponse);
+  rpc verifyEmail (VerifyEmailRequest) returns (VerifyEmailResponse);
+  rpc isEmailVerified (IsEmailVerifiedRequest) returns (IsEmailVerifiedResponse);
 }
 
 message SignUpRequest {
-  string username = 1;
+  string email = 1;
   string password = 2;
+  string nickname = 3;
+  string phoneNumber = 4;
+  string address = 5;
 }
 
 message SignUpResponse {
-  string message = 1;
+  bool success = 1;
+  string message = 2;
 }
 
 message UserRequest {
@@ -20,6 +27,31 @@ message UserRequest {
 }
 
 message UserResponse {
-  string username = 1;
+  string nickname = 1;
   string email = 2;
+}
+
+message SendVerificationEmailRequest {
+  string email = 1;
+}
+
+message SendVerificationEmailResponse {
+  string message = 1;
+}
+
+message VerifyEmailRequest {
+  string email = 1;
+  string token = 2;
+}
+
+message VerifyEmailResponse {
+  string message = 1;
+}
+
+message IsEmailVerifiedRequest {
+  string email = 1;
+}
+
+message IsEmailVerifiedResponse {
+  bool verified = 1;
 }

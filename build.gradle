@@ -21,6 +21,7 @@ configurations {
 }
 
 repositories {
+	mavenLocal()
 	mavenCentral()
 }
 
@@ -45,6 +46,24 @@ dependencies {
 	implementation group: 'net.devh', name: 'grpc-spring-boot-starter', version: '2.14.0.RELEASE'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	//mysql
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'mysql:mysql-connector-java:8.0.33'
+
+
+	//mail-sender
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	//local common library
+	implementation 'com.bowmeow:bowmeow-common:1.0.0'
+
+	//Redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	//암호화
+	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
