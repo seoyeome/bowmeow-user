@@ -31,3 +31,8 @@ spring:
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true

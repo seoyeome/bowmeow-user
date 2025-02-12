@@ -1,0 +1,46 @@
+services:
+  user-service:
+    image: bow-meow-user:latest
+    ports:
+      - "8081:8080"
+    volumes:
+      - .:/app
+      - ~/.m2:/root/.m2  # Maven 캐시 공유 → 빌드 속도 향상
+    environment:
+      - SERVICE_ENV=production
+      - DB_HOST=mysql-db
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=user_db
+    depends_on:
+      - mysql-db
+      - redis
+    networks:
+      - bow-meow-network
+
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql-db-data:/var/lib/mysql
+      - /Users/seoyeome/bowmeow-user/mysql_init.sql:/docker-entrypoint-initdb.d/mysql_init.sql
+    networks:
+      - bow-meow-network
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis:latest
+    container_name: redis-db
+    ports:
+      - "6379:6379"
+    networks:
+      - bow-meow-network
+
+volumes:
+  mysql-db-data:
+
+networks:
+  bow-meow-network:
